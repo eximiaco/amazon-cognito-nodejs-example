@@ -1,0 +1,33 @@
+version: "3.6"
+
+services:
+    api:
+        build: ./api
+        ports:
+            - 3000:3000
+        environment:
+            - "PORT=3000"
+            - "CONNECTION_STRING=mongodb://root:Doug123@db/api"
+    website:
+        build: ./website
+        ports:
+            - 3001:3001
+        environment:
+            - "PORT=3001"
+            - "CONNECTION_STRING=mongodb://root:Doug123@db/website"
+            - "SESSION_SECRET=Douglas"
+            - "API_URI=http://api:3000/"
+    db:
+        image: mongo:4.4
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: Doug123
+        ports:
+            - 27017:27017
+        volumes:
+            - dbData:/data/db 
+            - dbConfig:/data/configdb
+
+volumes:
+    dbData:
+    dbConfig:

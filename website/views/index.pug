@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  a(class='button' href='/auth/login') Login
+  
+
+
+//- https://www.npmjs.com/package/passport-cognito
+
+//- https://tbdc-idp.auth.us-east-1.amazoncognito.com/oauth2/authorize?
+//- response_type=code&
+//- redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Fhome&
+//- client_id=5fkalbmtcajkma6h4kvkufnuor
+//- https://ian-says.com/articles/jwt-parsing-with-javascript/
+//- https://auth0.com/blog/create-a-simple-and-secure-node-express-app/
+//- https://ian-says.com/articles/jwt-parsing-with-javascript/
+//- https://auth0.com/docs/tokens/json-web-tokens/validate-json-web-tokens
+//- https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html <-------- importante

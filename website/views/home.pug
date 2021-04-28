@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= Home
+  p Welcome to #{title} HomePage
+
+  form(method="post") 
+
+    button(type="submit") CallAPI
+
+
+  p API Response: #{apiResponse}
+
+
+
