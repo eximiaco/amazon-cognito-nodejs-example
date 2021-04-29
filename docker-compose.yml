@@ -7,8 +7,8 @@ services:
             - 3000:3000
         environment:
             - "PORT=3000"
-            - "CONNECTION_STRING=mongodb://root:Doug123@db/api"
-            - "COGNITO_ENDPOINT=https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV"
+            - "CONNECTION_STRING=mongodb://root:password@db/api"
+            - "COGNITO_ENDPOINT=https://cognito-idp.us-east-1.amazonaws.com/<cognito_user_pool>"
             - "API_SCOPE=http://localhost:3000/all"
     website:
         build: ./website
@@ -16,18 +16,18 @@ services:
             - 3001:3001
         environment:
             - "PORT=3001"
-            - "CONNECTION_STRING=mongodb://root:Doug123@db/website"
-            - "SESSION_SECRET=Douglas"
+            - "CONNECTION_STRING=mongodb://root:password@db/website"
+            - "SESSION_SECRET=Secret"
             - "API_URI=http://api:3000/"
-            - "CLIENT_DOMAIN=https://tbdc-idp.auth.us-east-1.amazoncognito.com"
-            - "CLIENT_ID=5fkalbmtcajkma6h4kvkufnuor"
-            - "CLIENT_SECRET=1ujgfoopg99km509d9rrvs1egnqmcuavq8e8o6c5o5kf51qlvn43"
+            - "CLIENT_DOMAIN=https://<domain_name>.auth.us-east-1.amazoncognito.com"
+            - "CLIENT_ID=<client_id>"
+            - "CLIENT_SECRET=<client_secret>"
             - "AWS_REGION=us-east-1"
     db:
         image: mongo:4.4
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: Doug123
+            MONGO_INITDB_ROOT_PASSWORD: password
         ports:
             - 27017:27017
         volumes:

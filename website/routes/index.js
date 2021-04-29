@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'TBDC' });
+  res.render('index', { title: 'Cognito example' });
 });
 
 module.exports = router;

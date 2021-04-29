@@ -6,18 +6,18 @@ var authorized = require('../auth/authorized');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', authorized(''), function (req, res, next) {
-  res.render('home', { title: 'TBDC' });
+router.get('/', authorized, function (req, res, next) {
+  res.render('home', { title: 'Cognito example' });
 });
 
-router.post('/', authorized(''), function (req, res, next) {
+router.post('/', authorized, function (req, res, next) {
   axios.get(`${process.env.API_URI}`, {
     headers: {
       'Authorization': `Bearer ${req.user.accessToken}`
     }
   })
     .then((response) => {
-      res.render('home', { title: 'TBDC', apiResponse: response.data });
+      res.render('home', { title: 'Cognito example', apiResponse: response.data });
     }, (error) => {
       console.log(error);
     });

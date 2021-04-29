@@ -1,4 +1,4 @@
-const authorized = (scopes) => (req, res, next) => {
+const authorized = (req, res, next) => {
     if (req.user) {
         return next();
     }
