@@ -8,6 +8,8 @@ services:
         environment:
             - "PORT=3000"
             - "CONNECTION_STRING=mongodb://root:Doug123@db/api"
+            - "COGNITO_ENDPOINT=https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV"
+            - "API_SCOPE=http://localhost:3000/all"
     website:
         build: ./website
         ports:
@@ -17,6 +19,10 @@ services:
             - "CONNECTION_STRING=mongodb://root:Doug123@db/website"
             - "SESSION_SECRET=Douglas"
             - "API_URI=http://api:3000/"
+            - "CLIENT_DOMAIN=https://tbdc-idp.auth.us-east-1.amazoncognito.com"
+            - "CLIENT_ID=5fkalbmtcajkma6h4kvkufnuor"
+            - "CLIENT_SECRET=1ujgfoopg99km509d9rrvs1egnqmcuavq8e8o6c5o5kf51qlvn43"
+            - "AWS_REGION=us-east-1"
     db:
         image: mongo:4.4
         environment:

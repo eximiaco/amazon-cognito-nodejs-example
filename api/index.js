@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var client = jwksClient({
-  jwksUri: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV/.well-known/jwks.json'
+  jwksUri: `${process.env.COGNITO_ENDPOINT}/.well-known/jwks.json`
 });
 
 var JwtStrategy = require('passport-jwt').Strategy,
@@ -29,7 +29,7 @@ var opts = {
       done(null, signingKey);
     });
   },
-  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV'
+  issuer: process.env.COGNITO_ENDPOINT
 };
 
 passport.use('jwt', new JwtStrategy(opts, function (jwt_payload, cb) {
@@ -47,7 +47,7 @@ const validateScope = (scope) => (req, res, next) => {
     next();
 };
 
-app.get('/', passport.authenticate('jwt', { session: false }), validateScope('http://localhost:3000/all'), (req, res) => {
+app.get('/', passport.authenticate('jwt', { session: false }), validateScope(process.env.API_SCOPE), (req, res) => {
     res.send('Hello World from API!')
 });
 

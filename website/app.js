@@ -22,18 +22,17 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use('oauth2', new OAuth2Strategy({  
-  clientDomain: 'https://tbdc-idp.auth.us-east-1.amazoncognito.com',
-  clientID: '5fkalbmtcajkma6h4kvkufnuor',
-  clientSecret: '1ujgfoopg99km509d9rrvs1egnqmcuavq8e8o6c5o5kf51qlvn43',
+  clientDomain: process.env.CLIENT_DOMAIN,
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
   callbackURL: "http://localhost:3001/auth/callback/",
-  region: 'us-east-1',
-  scope: "email openid profile "
+  region: process.env.AWS_REGION
 },
   function (accessToken, refreshToken, params, profile, cb) {
     console.log(params);
     console.log(profile);    
     var decoded = jwt.decode(accessToken); 
-        
+
     User.findOrCreate({ _id: decoded.sub }, { accessToken, refreshToken }, function (err, user) {
       if(err) return cb(err);
 
