@@ -29,7 +29,7 @@ var opts = {
       done(null, signingKey);
     });
   },
-  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV',  
+  issuer: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_Po14yeUOV'
 };
 
 passport.use('jwt', new JwtStrategy(opts, function (jwt_payload, cb) {

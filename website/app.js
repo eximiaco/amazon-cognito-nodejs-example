@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
-var OAuth2Strategy = require('passport-oauth2');
+var OAuth2Strategy = require('passport-cognito-oauth2');
 var { User } = require('./model/schema');
 var jwt = require('jsonwebtoken');
 var expressSession = require('express-session')
@@ -21,16 +21,19 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new OAuth2Strategy({
-  authorizationURL: 'https://tbdc-idp.auth.us-east-1.amazoncognito.com/oauth2/authorize',
-  tokenURL: 'https://tbdc-idp.auth.us-east-1.amazoncognito.com/oauth2/token',
+passport.use('oauth2', new OAuth2Strategy({  
+  clientDomain: 'https://tbdc-idp.auth.us-east-1.amazoncognito.com',
   clientID: '5fkalbmtcajkma6h4kvkufnuor',
   clientSecret: '1ujgfoopg99km509d9rrvs1egnqmcuavq8e8o6c5o5kf51qlvn43',
-  callbackURL: "http://localhost:3001/auth/callback/"
+  callbackURL: "http://localhost:3001/auth/callback/",
+  region: 'us-east-1',
+  scope: "email openid profile "
 },
-  function (accessToken, refreshToken, profile, cb) {    
+  function (accessToken, refreshToken, params, profile, cb) {
+    console.log(params);
+    console.log(profile);    
     var decoded = jwt.decode(accessToken); 
-
+        
     User.findOrCreate({ _id: decoded.sub }, { accessToken, refreshToken }, function (err, user) {
       if(err) return cb(err);
 
